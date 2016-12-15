@@ -41,7 +41,6 @@ class TweetsController < ApplicationController
     redirect_to tweets_url
   end
 
-
   # POST /tweets
   def create
     @tweet = Tweet.new(tweet_params)
@@ -71,8 +70,8 @@ class TweetsController < ApplicationController
   end
 
   private
-    # Only allow a trusted parameter "white list" through.
-    def tweet_params
-      params.require(:tweet).permit(:text, :user_name)
-    end
+  # Only allow a trusted parameter "white list" through.
+  def tweet_params
+    params.require(:tweet).permit(:text, :user_name)
+  end
 end
