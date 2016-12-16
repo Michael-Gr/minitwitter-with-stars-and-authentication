@@ -10,7 +10,7 @@
             .media-body
               %h4.media-heading
                 = tweet.text
-                = tweet.user_name
+                = tweet.user.email
                 •
                 = distance_of_time_in_words_to_now(tweet.created_at)
               %p
@@ -19,8 +19,8 @@
               -# %p
               -#   =
               %p
-                -# = link_to reply_tweet_path(tweet) do
-                %i.fa.fa-reply{"aria-hidden" => "true"}
+                = link_to reply_tweet_path(tweet) do
+                  %i.fa.fa-reply{"aria-hidden" => "true"}
                 = tweet.replies.count
 
                 = link_to retweet_tweet_path(tweet) do
@@ -31,4 +31,4 @@
                   %i.fa.fa-heart{"aria-hidden" => "true"}
                 = tweet.hearts.count
 
-                •••
+                = link_to "•••", tweet_path(tweet)

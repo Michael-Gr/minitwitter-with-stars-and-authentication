@@ -1,4 +1,5 @@
 class TweetsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :new]
   # GET /tweets
   def index
     @tweets = Tweet.all.order("created_at DESC")
@@ -22,28 +23,41 @@ class TweetsController < ApplicationController
   # GET /heart_tweet_path
   def heart
     @tweet = Tweet.find(params[:id])
-    @tweet.hearts.create
+    if @tweet.hearts.where(user: current_user).count == 0
+      @tweet.hearts.create(user: current_user)
+      redirect_to tweets_url
+    else
+      redirect_to tweets_url, notice: "Hey, you already did that!"
+    end
 
-    redirect_to tweets_url
   end
 
   def retweet
     @tweet = Tweet.find(params[:id])
-    @tweet.retweets.create
+    if @tweet.retweets.where(user: current_user).count == 0
+      @tweet.retweets.create(user: current_user)
+      redirect_to tweets_url
+    else
+      redirect_to tweets_url, notice: "Hey, you already did that!"
+    end
 
-    redirect_to tweets_url
   end
 
   def reply
     @tweet = Tweet.find(params[:id])
-    @tweet.replies.create
+    if @tweet.replies.where(user: current_user).count == 0
+      @tweet.replies.create(user: current_user)
+      redirect_to tweets_url
+    else
+      redirect_to tweets_url, notice: "Hey, you already did that!"
+    end
 
-    redirect_to tweets_url
   end
 
   # POST /tweets
   def create
     @tweet = Tweet.new(tweet_params)
+    @tweet.user = current_user
 
     if @tweet.save
       redirect_to tweets_url, notice: 'Tweet was successfully created.'
