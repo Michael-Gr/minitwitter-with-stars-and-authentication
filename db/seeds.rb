@@ -13,9 +13,9 @@ holly = User.create(email: 'holly@example.com', password: '123456')
 
 tweets = Tweet.create(
   [
-    { user: gavin, text: 'Tweet 1', user_name: gavin.email },
-    { user: jason, text: 'Tweet 2', user_name: jason.email },
-    { user: mark, text: 'Tweet 3', user_name: mark.email },
-    { user: holly, text: 'Tweet 4', user_name: holly.email }
+    { user: gavin, text: 'Tweet 1' },
+    { user: jason, text: 'Tweet 2' },
+    { user: mark, text: 'Tweet 3' },
+    { user: holly, text: 'Tweet 4' }
   ]
 )

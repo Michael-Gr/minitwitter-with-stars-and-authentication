@@ -41,10 +41,16 @@
           %ul.nav.navbar-nav.navbar-right
             -# %li
             -#   = link_to current_user.email
-            %li
-              = link_to "Have an account? Log in", "/users/sign_in"
-            %li
-              = link_to "Don't have an account? Sign up", "/users/sign_up"
+            - if user_signed_in?
+              %p.navbar-text
+                = current_user.email
+              %li
+                = link_to "Logout", destroy_user_session_path, method: :delete
+            - else
+              %li
+                = link_to "Have an account? Log in", "/users/sign_in"
+              %li
+                = link_to "Don't have an account? Sign up", "/users/sign_up"
     .container
       - flash.each do |name, msg|
         = content_tag :div, class: "alert alert-#{name == :error ? "danger" : "success" } alert-dismissable", role: "alert" do
